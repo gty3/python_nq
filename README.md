@@ -3,12 +3,12 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<div align="center">
+<div >
 
 
-<h3 align="center">NQ Script</h3>
+<h3 >NQ Script</h3>
 
-  <p align="center">
+  <p >
 A trading script using historical data.
     <br />
     <br />
@@ -20,44 +20,14 @@ A trading script using historical data.
   </p>
 </div>
 
-
-
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
-  </ol>
-</details>
-
-
-
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 ![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/NQ1S-44-46.png)
 
-This project exists as a guide to getting into trading alogrithms with Python.
+This project exists as a guide to getting into trading alogrithms with Python. And experimenting with trading algorithms.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
@@ -71,45 +41,34 @@ This project exists as a guide to getting into trading alogrithms with Python.
 * [![SST](https://img.shields.io/badge/dtale-4A90E2?style=for-the-badge&logo=serverless-stack)](https://github.com/man-group/dtale)
 * [![Databento](https://img.shields.io/badge/Databento-DEA584?style=for-the-badge&logo=custom&logoColor=white)](https://databento.com/)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This project is built with SST.
+This project is built using Jupyter.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+You will need a way to run the Jupyter file. I use VSCode with the Jupyter extension.
+You will also need a DataBento API key. You can get one free at [https://databento.com/](https://databento.com/)
 
 
 ### Installation
 
-1. Get an API Key at [https://databento.com/](https://databento.com/)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/gty3/python_nq.git
    ```
-3. Install backend and frontend NPM packages
-   ```sh
-   pnpm install
-   ```
-4. Rename `env.example` to `.env` and add your DATABENTO_API_KEY
+2. Open the project with your choice of Jupyter platform.
+3. Rename `env.example` to `.env` and add your DATABENTO_API_KEY
 
-5. Run the backend locally
-    ```sh
-    npx sst dev
-    ```
+4. Go to nq_script.ipynb and Rrn the project
 
-6. Run the frontend
-    ```sh
-    cd frontend
-    pnpm dev
-    ```
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
@@ -118,9 +77,8 @@ This is an example of how to list things you need to use the software and how to
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <!-- LICENSE -->
@@ -128,28 +86,19 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 
 <!-- CONTACT -->
 ## Contact
 
-Geoff Young - [@_gty__](https://x.com/_gty__) - email@email_client.com
+Geoff Young - [@_gty__](https://x.com/_gty__)
 
-Project Link: [https://github.com/gty3/dom-replay](https://github.com/gty3/dom-replay)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+Project Link: [https://github.com/gty3/python_nq](https://github.com/gty3/python_nq)
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
