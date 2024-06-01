@@ -6,10 +6,10 @@
 <div >
 
 
-<h3 >NQ Script</h3>
+<h2 >NQ Script</h2>
 
   <p >
-A trading script using historical data.
+  A trading algorithm that looks at historical data and outputs a dataframe of trades.
     <br />
     <br />
     <a href="https://github.com/gty3/python_nq/blob/main/nq_script.ipynb">View Demo</a>
@@ -25,8 +25,7 @@ A trading script using historical data.
 
 ![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/NQ1S-44-46.png)
 
-This project exists as a guide to getting into trading alogrithms with Python. And experimenting with trading algorithms.
-
+This is my first attempt at making a trading alogrithm and serves as an educational experiment. 
 
 
 
