@@ -77,13 +77,19 @@ Cell 1 imports 3 datasets using the [get_range](https://databento.com/docs/api-r
 - The first 2 datasets use the "tbbo" schema - "Top of Book Bid and Offer". While the order book data is necessary for logging the NQ trade prices, it is not necessary for the underlying instruments orders. However, as these datasets are merged, it enables more concise code.
 - The 3rd dataset uses the "ohlcv-1s" schema to create our candlestick chart in cell 4.
 
+<br/>
 
 Cell 2 implements the trading logic for the algorithm.
 It aggregates the number of buys and sells across the 100 underlying instruments each second.
-The data comes in a dataframe and the library `pandas` is used for data manipulation.
-The cell defines a function `modify_trades` to handle trade modifications based on specific conditions, such as preventing multiple open trades of the same type. It then calculates buy and sell conditions based on the aggregated data of underlying instruments and the NQ contract and logs this in a dataframe. Finally, the cell calculates the profit and loss (PnL) for each trade, adjusting for trading fees, and aggregates the total PnL.
+- If the trade condition is met, log the nq bid/ask price in the trades dataframe.
+- The `modify_trades` function removes trades that do not conform to one contract open.
+- The `calculate_pnl` function adds a current trade and total profit & loss.
 
-Cell 3 utilizes the `dtale` library to render an interactive view of the trades dataframe. This is a great tool to visualize the dataframe while modifying the code. 
+<br/>
+
+Cell 3 uses `dtale` to view the trades dataframe. This is a great tool to visualize the dataframe while modifying the code. 
+
+<br/>
 
 Cell 4 creates a candlestick chart, overlaying a buy and sell dataframe, split from the previous dataframe, on a ohlc dataframe chart.
 

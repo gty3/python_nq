@@ -8,7 +8,7 @@ def calculate_pnl(trades_df):
     trades_df (pd.DataFrame): DataFrame containing trade data with columns 'price', 'side', 'trade_open'.
     
     Returns:
-    pd.DataFrame: Updated DataFrame with a new 'trade_pnl' column.
+    pd.DataFrame: Updated DataFrame with a new 'trade_pnl' and 'total_pnl' column.
     """
     fees_per_side = 1.38
     
