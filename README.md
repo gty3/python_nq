@@ -23,7 +23,7 @@
 
 ![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/nq_1s_2m.png)
 
-This project serves as an educational experiment. 
+This project serves as an educational experiment. It analyzes trading activity among the 100 stocks that comprise the Nasdaq 100 and creates a dataframe of trades based on NQ bid/ask. This dataframe is then visualized with `mplfinance`.
 
 
 
