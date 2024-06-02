@@ -23,10 +23,7 @@
 
 ![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/nq_1s_2m.png)
 
-This project serves as an educational experiment. It analyzes trading activity among the 100 stocks that comprise the Nasdaq 100 and creates a dataframe of trades based on NQ bid/ask. This dataframe is then visualized with `mplfinance`.
-
-
-
+This project serves as an educational experiment. It analyzes trading activity among the 100 stocks that comprise the Nasdaq 100 and creates a dataframe of trades based on NQ bid/ask. This dataframe is then overlayed on a candlestick chart.
 
 ### Built With
 * [![Python](https://img.shields.io/badge/Python-20232A?style=for-the-badge&logo=python&logoColor=61DAFB)](https://www.python.org/)
@@ -90,7 +87,7 @@ Cell 3 uses `dtale` to view the trades dataframe. This is a great tool to visual
 
 <br/>
 
-Cell 4 creates a candlestick chart, overlaying a buy and sell dataframe, split from the previous dataframe, on a ohlc dataframe chart.
+Cell 4 creates a candlestick chart using `mplfinance`, overlaying a buy and sell dataframe, split from the previous dataframe, on a ohlc dataframe chart.
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -98,6 +95,7 @@ Cell 4 creates a candlestick chart, overlaying a buy and sell dataframe, split f
 - [ ] Simulate network latency.
 - [ ] Add a stop loss. 
 - [ ] Add max duration to a trade.
+- [ ] Use live data.
 
 
 
