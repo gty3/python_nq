@@ -59,10 +59,9 @@ You will need an API key from  [Databento](https://databento.com/).
 2. Open the project with your choice of Jupyter platform.
 3. Rename `env.example` to `.env` and add your DATABENTO_API_KEY
 
-4. Go to nq_script.ipynb and select Run All.
+4. Open main.ipynb and select Run All.
   
-    If you are using vscode you will be prompted to select a kernel.
-
+    You will need to have python installed.
 
 
 
