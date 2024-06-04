@@ -34,12 +34,13 @@ def format_chart_title(symbols, start_time, chart_schema):
 def create_trade_scatter(trades_df, trade_type, color, marker):
     filtered_trades = trades_df.copy()
     filtered_trades.loc[filtered_trades['side'] != trade_type] = np.nan
+    label = "Buy" if trade_type == 'B' else "Sell"
     scatter_plot = mpf.make_addplot(filtered_trades['price'], 
                                     type='scatter', 
                                     markersize=20, 
                                     marker=marker, 
                                     color=color, 
-                                    label=trade_type.lower())
+                                    label=label)
     return scatter_plot
 
 # Function to create PNL line plot
