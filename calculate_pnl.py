@@ -8,7 +8,7 @@ def calculate_pnl(trades_df):
     trades_df (pd.DataFrame): DataFrame containing trade data with columns 'price', 'side', 'trade_open'.
     
     Returns:
-    pd.DataFrame: Updated DataFrame with a new 'trade_pnl' and 'total_pnl' column.
+    None: The dataframe is modified, no return value needed
     """
     fees_per_side = 1.38
     
@@ -24,4 +24,4 @@ def calculate_pnl(trades_df):
     trades_df['trade_pnl'] = trades_df['trade_pnl'].fillna(0) * 20
     trade_count = trades_df['price'].notna().cumsum()
     trades_df['total_pnl'] = trades_df['trade_pnl'].cumsum() - (fees_per_side * trade_count)
-    return trades_df
+    return None

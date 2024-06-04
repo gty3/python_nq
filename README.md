@@ -66,7 +66,7 @@ You will need an API key from  [Databento](https://databento.com/).
 
 <!-- USAGE EXAMPLES -->
 ## Usage
-
+The trades are limited to 1 per second, plotting will fail if otherwise. Be sure to use trading hours data
 The project is divided into 4 cells. 
 
 Cell 1 imports 3 datasets using the [get_range](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range?historical=python&live=python) method:

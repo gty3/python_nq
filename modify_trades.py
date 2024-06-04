@@ -59,7 +59,6 @@ def modify_trades(df):
     """
     previous_trade_side = None
     previous_trade_open = False
-    print('suh')
     for index, row in df.iterrows():
         if pd.notna(row['price']):
             if previous_trade_open:
