@@ -4,7 +4,7 @@ def calculate_pnl(trades_df):
     """
     Calculate the profit and loss (PnL) for trades stored in a DataFrame.
 
-    This function computes the PnL for each trade based on its opening and closing prices,
+    This function computes the PnL for each trade based on ask / bid prices,
     adjusts for fees, and updates the DataFrame in-place.
 
     Args:
