@@ -3,7 +3,7 @@ import numpy as np
 
 def prepare_dataframes(nq_df, underlying_df):
     """
-    Combines the NQ and underlying dataframes and attaches NQ bid / ask to every order.
+    Combine the NQ and underlying dataframes and attache NQ bid / ask to every order.
 
     Args:
         nq_df (pd.DataFrame): DataFrame containing NQ with columns 'ask_px_00' and 'bid_px_00'.
@@ -21,13 +21,14 @@ def prepare_dataframes(nq_df, underlying_df):
   
 def group_and_aggregate(df):
     """
-    Groups and aggregates the DataFrame by second and calculates trading metrics.
+    Group and aggregate the dataframe by second and calculate trading metrics, 
+    total buy orders and total sell orders per second.
 
     Args:
-        df (pd.DataFrame): DataFrame to be grouped and aggregated.
+        df (pd.DataFrame): Dataframe to be grouped and aggregated.
 
     Returns:
-        pd.DataFrame: Aggregated DataFrame with total sells, total buys, and last 'nq_ask' and 'nq_bid'.
+        pd.DataFrame: Aggregated Dataframe with total sells, total buys, and last 'nq_ask' and 'nq_bid'.
     """
     return df.groupby(df.index.floor('S')).agg(
         underlying_total_sells=('side', lambda x: x.eq('A').sum()),
@@ -38,20 +39,22 @@ def group_and_aggregate(df):
 
 def create_trades_df(grouped_df, ohlcv_df):
     """
-    Creates a DataFrame for trades based on conditions derived from grouped data.
+    Create a dataframe for trades based on conditions derived from grouped data.
 
     Args:
-        grouped_df (pd.DataFrame): DataFrame containing aggregated trade data.
-        ohlcv_df (pd.DataFrame): DataFrame containing OHLCV data for the trading period.
+        grouped_df (pd.DataFrame): Dataframe containing aggregated trade data.
+        ohlcv_df (pd.DataFrame): Dataframe containing OHLCV data for the trading period.
 
     Returns:
-        pd.DataFrame: Trades DataFrame with columns for price, side, and trade open status.
+        pd.DataFrame: Trades Dataframe with columns for price, side, and trade open status.
     """
+    # Create a DataFrame for trades with the same index as the OHLCV dataframe to allow for plotting
     trades_df = pd.DataFrame(index=ohlcv_df.index, columns=['price', 'side', 'trade_open', 'trade_pnl'])
     # Trade condition: if total sells is greater than total buys * 2
     buy_condition = (grouped_df['underlying_total_sells'] > grouped_df['underlying_total_buys'] * 2)
     # Trade condition: if total buys is greater than total sells * 2
     sell_condition = (grouped_df['underlying_total_buys'] > grouped_df['underlying_total_sells'] * 2)
+    # Log the trade in the trades dataframe, if sell, trade price will be nq_bid, and vice versa
     trades_df.loc[sell_condition, 'price'] = grouped_df['nq_bid']
     trades_df.loc[sell_condition, 'side'] = 'S'
     trades_df.loc[buy_condition, 'price'] = grouped_df['nq_ask']
@@ -60,14 +63,14 @@ def create_trades_df(grouped_df, ohlcv_df):
 
 def modify_trades(df):
     """
-    Modifies the trades dataframe to ensure only one contract is open at a time.
-    Removes consecutive trades of the same type ('S' or 'B') when a trade is already open.
+    Modify the trades dataframe to ensure only one contract is open at a time.
+    Remove consecutive trades of the same type ('S' or 'B') when a trade is already open.
     
     Args:
         df (pd.DataFrame): The trades dataframe with columns 'price', 'side', 'trade_open'.
     
     Modifies:
-        df (pd.DataFrame): Trades non-allowed trades to NaN and adjust the 'trade_open' status.
+        df (pd.DataFrame): Trades dataframe with non-allowed trades to NaN and adjust the 'trade_open' status.
     """
     previous_trade_side = None
     previous_trade_open = False
@@ -86,11 +89,11 @@ def modify_trades(df):
                 
 def calculate_pnl(trades_df):
     """
-    Computes the PnL for each trade based on ask / bid prices,
-    adjusts for fees, and updates the DataFrame.
+    Compute the PnL for each trade based on ask / bid prices,
+    adjust for fees, and update trade_pnl and total_pnl accordingly.
 
     Args:
-        trades_df (pd.DataFrame): DataFrame containing trade data with columns:
+        trades_df (pd.DataFrame): Dataframe containing trade data with columns:
             'price' (float): The price of the trade.
             'side' (str): 'B' for buy or 'S' for sell.
             'trade_open' (bool): True if the trade is open, False otherwise.
