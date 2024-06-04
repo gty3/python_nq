@@ -2,6 +2,16 @@ import pandas as pd
 import numpy as np
 
 def prepare_dataframes(nq_df, underlying_df):
+    """
+    Combines the NQ and underlying dataframes and attaches NQ bid / ask to every order.
+
+    Args:
+        nq_df (pd.DataFrame): DataFrame containing NQ with columns 'ask_px_00' and 'bid_px_00'.
+        underlying_df (pd.DataFrame): Orders from all the stocks in the Nasdaq 100.
+
+    Returns:
+        pd.DataFrame: Combined DataFrame with forward filled 'nq_ask' and 'nq_bid' columns.
+    """
     nq_df['nq_ask'] = nq_df['ask_px_00']
     nq_df['nq_bid'] = nq_df['bid_px_00']
     combined_df = pd.concat([underlying_df, nq_df]).sort_index()
@@ -10,6 +20,15 @@ def prepare_dataframes(nq_df, underlying_df):
     return combined_df
   
 def group_and_aggregate(df):
+    """
+    Groups and aggregates the DataFrame by second and calculates trading metrics.
+
+    Args:
+        df (pd.DataFrame): DataFrame to be grouped and aggregated.
+
+    Returns:
+        pd.DataFrame: Aggregated DataFrame with total sells, total buys, and last 'nq_ask' and 'nq_bid'.
+    """
     return df.groupby(df.index.floor('S')).agg(
         underlying_total_sells=('side', lambda x: x.eq('A').sum()),
         underlying_total_buys=('side', lambda x: x.eq('B').sum()),
@@ -18,8 +37,20 @@ def group_and_aggregate(df):
     )
 
 def create_trades_df(grouped_df, ohlcv_df):
+    """
+    Creates a DataFrame for trades based on conditions derived from grouped data.
+
+    Args:
+        grouped_df (pd.DataFrame): DataFrame containing aggregated trade data.
+        ohlcv_df (pd.DataFrame): DataFrame containing OHLCV data for the trading period.
+
+    Returns:
+        pd.DataFrame: Trades DataFrame with columns for price, side, and trade open status.
+    """
     trades_df = pd.DataFrame(index=ohlcv_df.index, columns=['price', 'side', 'trade_open', 'trade_pnl'])
+    # Trade condition: if total sells is greater than total buys * 2
     buy_condition = (grouped_df['underlying_total_sells'] > grouped_df['underlying_total_buys'] * 2)
+    # Trade condition: if total buys is greater than total sells * 2
     sell_condition = (grouped_df['underlying_total_buys'] > grouped_df['underlying_total_sells'] * 2)
     trades_df.loc[sell_condition, 'price'] = grouped_df['nq_bid']
     trades_df.loc[sell_condition, 'side'] = 'S'
@@ -30,15 +61,13 @@ def create_trades_df(grouped_df, ohlcv_df):
 def modify_trades(df):
     """
     Modifies the trades dataframe to ensure only one contract is open at a time.
+    Removes consecutive trades of the same type ('S' or 'B') when a trade is already open.
     
     Args:
         df (pd.DataFrame): The trades dataframe with columns 'price', 'side', 'trade_open'.
     
-    The function iterates through each trade in the dataframe.
-    - Trades of the same type ('S' or 'B') cannot open consecutively without closing the previous one.
-    - A trade of a different type can close the previous trade.
-    
-    Modifies the dataframe in-place by setting non-allowed trades to NaN and adjusting the 'trade_open' status.
+    Modifies:
+        df (pd.DataFrame): Trades non-allowed trades to NaN and adjust the 'trade_open' status.
     """
     previous_trade_side = None
     previous_trade_open = False
@@ -57,8 +86,8 @@ def modify_trades(df):
                 
 def calculate_pnl(trades_df):
     """
-    This function computes the PnL for each trade based on ask / bid prices,
-    adjusts for fees, and updates the DataFrame in-place.
+    Computes the PnL for each trade based on ask / bid prices,
+    adjusts for fees, and updates the DataFrame.
 
     Args:
         trades_df (pd.DataFrame): DataFrame containing trade data with columns:
