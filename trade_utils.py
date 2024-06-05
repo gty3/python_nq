@@ -19,18 +19,19 @@ def prepare_dataframes(nq_df, underlying_df):
     combined_df['nq_bid'] = combined_df['nq_bid'].ffill()
     return combined_df
   
-def group_and_aggregate(df):
+def group_and_aggregate(df, order_frequency):
     """
     Group and aggregate the dataframe by second and calculate trading metrics, 
     total buy orders and total sell orders per second.
 
     Args:
         df (pd.DataFrame): Dataframe to be grouped and aggregated.
+        order_frequency (str): Frequency of the orders, 'S' for second, 'M' for minute, 'H' for hour.
 
     Returns:
         pd.DataFrame: Aggregated Dataframe with total sells, total buys, and last 'nq_ask' and 'nq_bid'.
     """
-    return df.groupby(df.index.floor('S')).agg(
+    return df.groupby(df.index.floor(order_frequency)).agg(
         underlying_total_sells=('side', lambda x: x.eq('A').sum()),
         underlying_total_buys=('side', lambda x: x.eq('B').sum()),
         nq_ask=('nq_ask', 'last'),

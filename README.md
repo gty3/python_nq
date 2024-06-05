@@ -61,6 +61,11 @@ You will need an API key from  [Databento](https://databento.com/).
     You will need to have python installed.
 
 
+<!-- MAKING CHANGES -->
+## Making Changes
+Change the instrument that's traded with the variables ‘symbols’ and ‘dataset’. As well as the instruments that are monitored with ‘underlying_symbols’ and ‘underlying_dataset’. It works for both stocks and futures.
+Change the trade condition by modifying the ‘create_trades_df’
+You can modify the frequency of the trades/gathered data, but without modifying the code
 
 
 
@@ -68,6 +73,9 @@ You will need an API key from  [Databento](https://databento.com/).
 ## Usage
 The trades are limited to 1 per second, plotting will fail if otherwise. Be sure to use trading hours data
 The project is divided into 4 cells. 
+Different timeframes can be used, Databento provides
+The frequency of the orders can be changed, be aware of having to round to the order times to the index of the displayed chart.
+Change the trade conditions in trade_utils/create_trades_df 
 
 Cell 1 imports 3 datasets using the [get_range](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range?historical=python&live=python) method:
 - The first 2 datasets use the "tbbo" schema - "Top of Book Bid and Offer". While the order book data is necessary for logging the NQ trade prices, it is not necessary for the underlying instruments orders. However, as these datasets are merged, it enables more concise code.
