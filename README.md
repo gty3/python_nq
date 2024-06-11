@@ -69,17 +69,13 @@ Change the multiplier or invert the condtion '>' or '<'.
 
 Modify 'group_and_aggregate' in /trade_utils.py to change the condition's attributes. For example change `'underlying_total_sells'` to the attribute  `underlying_sells_average=('side', lambdax: x.eq('A').mean())`
 
-Changing the time frame of the trade condition requires modifying the chart time frame as well. Dataframe keys need to be aligned with the candlestick plot to properly overlay.
+Changing the time frame of the trade condition requires modifying the chart time frame as well. In order for the trades to overlay on the candlestick plot, the trades dataframe keys need to match candlestick dataframe keys.
 
 <!-- USAGE EXAMPLES -->
 
 ## Usage
 
-The trades are limited to 1 per second, plotting will fail if otherwise. Be sure to use trading hours data
 The project is divided into 4 cells.
-Different timeframes can be used, Databento provides
-The frequency of the orders can be changed, be aware of having to round to the order times to the index of the displayed chart.
-Change the trade conditions in trade_utils/create_trades_df
 
 Cell 1 imports 3 datasets using the [get_range](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range?historical=python&live=python) method:
 
