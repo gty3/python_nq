@@ -16,7 +16,7 @@
 
 ## About The Project
 
-![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/nq_1s_2m.png)
+![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/trading_chart.png)
 
 This code analyzes trading activity among the 100 stocks that comprise the Nasdaq 100 and creates a dataframe of trades based on NQ bid/ask. This dataframe is then overlayed on a candlestick chart.
 
