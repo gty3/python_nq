@@ -31,7 +31,7 @@ This code analyzes trading activity among the 100 stocks that comprise the Nasda
 
 ## Getting Started
 
-### Requirements 
+### Requirements
 
 * To run the Jupyter notebook, you'll need an appropriate environment.
   I'm using Visual Studio Code with the Jupyter extension.
@@ -69,10 +69,9 @@ Cell 3 uses `dtale` to view the trades dataframe. This is a great tool to visual
 
 Cell 4 creates a Candlestick chart using `mplfinance`. The trades dataframe is seperated into two, buy and sell dataframes, which are overlayed on a Candlestick chart plotted from the OHLCV data.
 
-
 ## Making Changes
 
-Change the instrument that's traded with the variables ‘symbols’ and ‘dataset’, as well as the instruments that are monitored with ‘underlying_symbols’ and ‘underlying_dataset’. It works for both stocks and futures. For more information on the available symbols and datasets - [https://databento.com/docs/api-reference-historical/basics/datasets]()
+You can change the instruments being traded by altering the variables ‘symbols’ and ‘dataset’, as well as the instruments that are monitored with ‘underlying_symbols’ and ‘underlying_dataset’. It works for both stocks and futures. For more information on the available symbols and datasets - [https://databento.com/docs/api-reference-historical/basics/datasets]()
 
 Change the trade conditions by modifying the ‘create_trades_df’ in /trade_utils.py.
 Change the multiplier or invert the condtion '>' or '<'.
