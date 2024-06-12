@@ -1,5 +1,3 @@
-
-
 <h2 >Simulating trades with order flow triggers</h2>
 
 <p >
@@ -18,7 +16,7 @@
 
 ![Product Screenshot](https://raw.githubusercontent.com/gty3/dom-img/main/trading_chart_6_7.png)
 
-This code analyzes trading activity among the 100 stocks that comprise the Nasdaq 100 and creates a dataframe of trades based on NQ bid/ask. This dataframe is then overlayed on a candlestick chart.
+This code analyzes trading activity among the 100 stocks that comprise the Nasdaq 100, and creates a dataframe of trades based on NQ bid/ask. This dataframe is then overlayed on a Candlestick chart.
 
 ### Built With
 
@@ -33,12 +31,12 @@ This code analyzes trading activity among the 100 stocks that comprise the Nasda
 
 ## Getting Started
 
-To run the Jupyter notebook, you'll need an appropriate environment.
-I'm using Visual Studio Code with the Jupyter extension.
+### Requirements 
 
-You will need an API key from  [Databento](https://databento.com/).
-
-You will need Python installed.
+* To run the Jupyter notebook, you'll need an appropriate environment.
+  I'm using Visual Studio Code with the Jupyter extension.
+* You will need an API key from  [Databento](https://databento.com/).
+* You will need Python installed.
 
 ### Installation
 
@@ -51,7 +49,27 @@ You will need Python installed.
 * Rename `env.example` to `.env` and add your DATABENTO_API_KEY
 * Open main.ipynb and select Run All.
 
-<!-- MAKING CHANGES -->
+## Usage
+
+The project is divided into 4 cells.
+
+Cell 1 imports 3 datasets using the [get_range](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range?historical=python&live=python) method:
+
+- The first 2 datasets use the "tbbo" schema - "Top of Book Bid and Offer". While the order book data is necessary for logging the NQ trade prices, it is not necessary for the underlying instruments orders. However, as these datasets are merged, it enables more concise code.
+- The 3rd dataset uses the "ohlcv-1s" schema to create our Candlestick chart in cell 4.
+
+Cell 2 implements the trading logic for the algorithm.
+It aggregates the number of buys and sells across the 100 underlying instruments each second.
+
+- If the trade condition is met, log the nq bid/ask price in the trades dataframe.
+- The `modify_trades` function removes trades that do not conform to one contract open.
+- The `calculate_pnl` function adds a current trade and total profit & loss.
+
+Cell 3 uses `dtale` to view the trades dataframe. This is a great tool to visualize the dataframe while modifying the code.
+
+Cell 4 creates a Candlestick chart using `mplfinance`. The trades dataframe is seperated into two, buy and sell dataframes, which are overlayed on a Candlestick chart plotted from the OHLCV data.
+
+
 ## Making Changes
 
 Change the instrument that's traded with the variables ‘symbols’ and ‘dataset’, as well as the instruments that are monitored with ‘underlying_symbols’ and ‘underlying_dataset’. It works for both stocks and futures. For more information on the available symbols and datasets - [https://databento.com/docs/api-reference-historical/basics/datasets]()
@@ -63,28 +81,7 @@ Change the multiplier or invert the condtion '>' or '<'.
 
 Modify 'group_and_aggregate' in /trade_utils.py to change the condition's attributes. For example change `'underlying_total_sells'` to the attribute  `underlying_sells_average=('side', lambdax: x.eq('A').mean())`
 
-Changing the time frame of the trade condition requires modifying the chart time frame as well. In order for the trades to overlay on the candlestick plot, the trades dataframe keys need to match candlestick dataframe keys.
-
-
-## Usage
-
-The project is divided into 4 cells.
-
-Cell 1 imports 3 datasets using the [get_range](https://databento.com/docs/api-reference-historical/timeseries/timeseries-get-range?historical=python&live=python) method:
-- The first 2 datasets use the "tbbo" schema - "Top of Book Bid and Offer". While the order book data is necessary for logging the NQ trade prices, it is not necessary for the underlying instruments orders. However, as these datasets are merged, it enables more concise code.
-- The 3rd dataset uses the "ohlcv-1s" schema to create our candlestick chart in cell 4.
-
-Cell 2 implements the trading logic for the algorithm.
-It aggregates the number of buys and sells across the 100 underlying instruments each second.
-
-- If the trade condition is met, log the nq bid/ask price in the trades dataframe.
-- The `modify_trades` function removes trades that do not conform to one contract open.
-- The `calculate_pnl` function adds a current trade and total profit & loss.
-
-Cell 3 uses `dtale` to view the trades dataframe. This is a great tool to visualize the dataframe while modifying the code.
-
-Cell 4 creates a candlestick chart using `mplfinance`. The trades dataframe is seperated into two, buy and sell dataframes, which are overlayed on a candlestick chart plotted from the OHLCV data.
-
+Changing the time frame of the trade condition requires modifying the chart time frame as well. In order for the trades to overlay on the Candlestick plot, the trades dataframe keys need to match Candlestick dataframe keys.
 
 ## Roadmap
 
@@ -93,11 +90,9 @@ Cell 4 creates a candlestick chart using `mplfinance`. The trades dataframe is s
 - [ ] Add max duration to a trade.
 - [ ] Use live data.
 
-
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
-
 
 ## Contact
 
